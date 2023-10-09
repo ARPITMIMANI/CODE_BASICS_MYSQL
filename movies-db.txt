@@ -1,0 +1,259 @@
+-- USE moviesdb ;
+
+-- SELECT * FROM moviesdb.movies ;
+
+-- SELECT movie_id , title , indudtry FROM movies ;
+ 
+-- SELECT * FROM moviesdb.movies WHERE industry = "Bollywood" ;
+
+-- SELECT * FROM moviesdb.movies WHERE industry = "bollywood" ;
+
+-- SELECT COUNT(*) FROM moviesdb.movies WHERE industry = "Bollywood" ;
+
+-- SELECT COUNT(*) FROM moviesdb.movies WHERE industry = "hollywood" ;
+
+-- SELECT DISTINCT industry FROM movies ;
+
+-- SELECT * FROM movies WHERE title LIKE "%THOR%" ;
+
+-- SELECT * FROM movies WHERE title LIKE "THOR%" ;
+
+-- SELECT * FROM movies WHERE title LIKE "%america%" ;
+
+-- SELECT * FROM movies WHERE studio = "" ;
+
+-- SELECT * FROM movies WHERE imdb_rating >= 9 ;
+
+-- SELECT * FROM movies WHERE imdb_rating > 9 ;
+
+-- SELECT * FROM movies WHERE imdb_rating <= 5 ;
+
+-- SELECT * FROM movies WHERE imdb_rating < 5 ;
+
+-- SELECT * FROM movies WHERE imdb_rating >= 6 AND imdb_rating <= 8 ;
+
+-- SELECT * FROM movies WHERE imdb_rating BETWEEN 6 AND 8 ;
+
+-- SELECT * FROM movies WHERE release_year = 2022 ;
+
+-- SELECT * FROM movies WHERE release_year = 2022 OR release_year = 2019 ;
+
+-- SELECT * FROM movies WHERE release_year = 2022 OR release_year = 2019 OR release_year = 2018 ;
+
+-- SELECT * FROM movies WHERE release_year IN ( 2022 , 2019 , 2018 ) ;
+
+-- SELECT * FROM movies WHERE studio IN ( "Marvel Studios" , "Zee Studios" ) ;
+
+-- SELECT * FROM movies WHERE imdb_rating IS NULL ;
+
+-- SELECT * FROM movies WHERE imdb_rating IS NOT NULL ;
+
+/* SELECT * FROM movies 
+WHERE industry = "bollywood"
+ORDER BY imdb_rating ASC ; */
+
+/* SELECT * FROM movies 
+WHERE industry = "bollywood"
+ORDER BY imdb_rating DESC ; */
+
+/* SELECT * FROM movies 
+WHERE industry = "bollywood"
+ORDER BY imdb_rating DESC 
+LIMIT 5 ; */
+
+/* SELECT * FROM movies 
+WHERE industry = "bollywood"
+ORDER BY imdb_rating DESC 
+LIMIT 5 
+OFFSET 3 ; */ 
+
+/* SELECT * FROM movies 
+WHERE industry = "bollywood"
+ORDER BY imdb_rating DESC 
+LIMIT 5 
+OFFSET 2 ; */
+
+/* SELECT * FROM movies 
+WHERE industry = "bollywood"
+ORDER BY imdb_rating DESC 
+LIMIT 5 
+OFFSET 4 ; */
+
+-- SELECT MAX(imdb_rating) FROM movies WHERE industry = "Bollywood" ;
+
+-- SELECT MIN(imdb_rating) FROM movies WHERE industry = "Bollywood" ;
+
+-- SELECT AVG(imdb_rating) FROM movies WHERE industry = "Bollywood" ;
+
+-- SELECT AVG(imdb_rating) FROM movies WHERE studio = "Marvel Studios" ;
+
+/* SELECT ROUND ( AVG(imdb_rating) , 2 ) 
+FROM movies 
+WHERE studio = "Marvel Studios" ; */
+
+/* SELECT ROUND ( AVG(imdb_rating) , 3 ) 
+FROM movies 
+WHERE studio = "Marvel Studios" ; */
+
+/* SELECT ROUND ( AVG(imdb_rating) , 2 ) AS avg_rating
+FROM movies 
+WHERE studio = "Marvel Studios" ; */ 
+
+/* SELECT ROUND ( AVG(imdb_rating) , 2 ) AS "avg rating"
+FROM movies 
+WHERE studio = "Marvel Studios" ; */
+
+/* SELECT
+MIN(imdb_rating) AS min_rating ,
+ROUND ( AVG(imdb_rating) , 2 ) AS avg_rating ,
+MAX(imdb_rating) AS max_rating 
+FROM movies 
+WHERE studio = "Marvel Studios" ; */
+
+/* SELECT industry , COUNT(*)
+FROM movies
+GROUP BY industry ; */
+
+/* SELECT 
+studio , 
+COUNT(studio) AS cnt
+FROM movies
+GROUP BY studio ; */
+
+/* SELECT 
+studio , 
+COUNT(industry) AS cnt
+FROM movies
+GROUP BY studio 
+ORDER BY cnt DESC ; */ 
+
+/* SELECT 
+industry , 
+COUNT(industry) AS cnt ,
+AVG(imdb_rating) AS avg_rating
+FROM movies
+GROUP BY industry ; */
+
+/* SELECT 
+industry , 
+COUNT(industry) AS cnt ,
+ROUND ( AVG(imdb_rating) , 2 ) AS avg_rating
+FROM movies
+GROUP BY industry ; */ 
+
+/* SELECT 
+studio , 
+COUNT(studio) AS cnt ,
+ROUND ( AVG(imdb_rating) , 2 ) AS avg_rating
+FROM movies
+GROUP BY studio
+ORDER BY avg_rating DESC ; */
+
+/* SELECT 
+studio , 
+COUNT(studio) AS cnt ,
+ROUND ( AVG(imdb_rating) , 2 ) AS avg_rating
+FROM movies
+WHERE studio != ""
+GROUP BY studio
+ORDER BY avg_rating DESC ; */
+
+/* SELECT 
+release_year , 
+COUNT(*) AS movies_count
+FROM movies
+GROUP BY release_year 
+HAVING movies_count > 2
+ORDER BY movies_count DESC ; */
+
+/* SELECT 
+release_year , 
+COUNT(*) AS movies_count
+FROM movies
+WHERE imdb_rating > 6 
+GROUP BY release_year 
+HAVING movies_count > 2
+ORDER BY movies_count DESC ; */
+
+-- SELECT CURDATE() ;
+
+-- SELECT YEAR(CURDATE()) ;
+
+/* SELECT * , 
+YEAR(CURDATE()) - birth_year AS age 
+FROM actors ; */ 
+
+/* SELECT * , 
+revenue - budget AS profit
+FROM financials ; */
+
+/* SELECT * ,
+IF ( currency="USD" , revenue*77 , revenue ) AS revenue_inr 
+FROM financials ; */
+
+-- SELECT DISTINCT unit FROM financials ;
+
+/* SELECT * ,
+CASE 
+    WHEN unit = "thousands" THEN revenue/1000
+    WHEN unit = "billions" THEN revenue*1000
+    ELSE revenue
+END AS currency_millions
+FROM financials ; */ 
+
+/* SELECT * ,
+CASE
+    WHEN currency = "USD" THEN revenue*77
+    WHEN currency = "INR" THEN  revenue
+END AS revenue_inr 
+FROM financials ; */
+
+/* SELECT movies.movie_id , title , budget , revenue , unit , currency
+FROM movies
+INNER JOIN financials
+ON movies.movie_id = financials.movie_id ; */
+
+/* SELECT m.movie_id , title , budget , revenue , unit , currency
+FROM movies AS m
+INNER JOIN financials AS f
+ON m.movie_id = f.movie_id ; */
+
+/* SELECT m.movie_id , title , budget , revenue , unit , currency
+FROM movies AS m
+LEFT JOIN financials AS f
+ON m.movie_id = f.movie_id ; */
+
+/* SELECT f.movie_id , title , budget , revenue , unit , currency
+FROM movies AS m
+RIGHT JOIN financials AS f
+ON m.movie_id = f.movie_id ; */
+
+/* SELECT m.movie_id , title , budget , revenue , unit , currency
+FROM movies AS m
+LEFT JOIN financials AS f
+ON m.movie_id = f.movie_id 
+UNION 
+SELECT f.movie_id , title , budget , revenue , unit , currency
+FROM movies AS m
+RIGHT JOIN financials AS f
+ON m.movie_id = f.movie_id ; */
+
+/* SELECT m.movie_id , title , budget , revenue , unit , currency
+FROM movies AS m
+CROSS JOIN financials AS f
+ON m.movie_id = f.movie_id ; */
+
+/* SELECT movies.movie_id , title , budget , revenue , unit , currency
+FROM movies 
+INNER JOIN financials
+USING ( movie_id ) ; */
+
+/* SELECT m.movie_id , title , budget , revenue , unit , currency
+FROM movies AS m
+INNER JOIN financials AS f
+USING ( movie_id ) ; */
+
+/* SELECT movie_id , title , budget , revenue , unit , currency
+FROM movies AS m
+INNER JOIN financials AS f
+USING ( movie_id ) ; */
